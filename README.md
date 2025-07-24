@@ -1,0 +1,2 @@
+# FauxCart
+Online store project
