@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import ProtectedRoute from "../../../components/ProtectedRoute";
+import UserHeader from "../../../components/UserHeader";
 import styles from "./page.module.scss";
 import Button from "../../../components/Button";
 import ProductDetail from "../../../components/ProductDetail/ProductDetail";
@@ -112,6 +113,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     return (
       <ProtectedRoute>
+        <UserHeader />
         <div className={styles.page}>
           <header className={`${styles.header} ${styles.notFound}`}>
             <div className={styles.headerContent}>
@@ -136,6 +138,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <ProtectedRoute>
       <div className={styles.page}>
+        <UserHeader />
         <header className={styles.header}>
           <div className={styles.headerBackground}>
             <Image

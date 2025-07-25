@@ -3,7 +3,7 @@ import styles from './Button.module.scss';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'danger' | 'rounded';
+  variant?: 'primary' | 'secondary' | 'danger' | 'rounded' | 'outline';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;

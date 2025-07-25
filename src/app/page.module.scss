@@ -59,21 +59,17 @@
   opacity: 0.8;
   font-weight: 500;
   cursor: default;
-}
-
-.signOutButton {
-  background: none;
-  border: 1px solid rgba(128, 128, 128, 0.3);
-  color: var(--foreground);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
   
-  &:hover {
-    background: rgba(128, 128, 128, 0.1);
-    border-color: rgba(128, 128, 128, 0.5);
+  @media (max-width: 768px) {
+    max-width: 180px;
+  }
+  
+  @media (max-width: 480px) {
+    max-width: 150px;
   }
 }
 
