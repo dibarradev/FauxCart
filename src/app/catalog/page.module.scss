@@ -10,7 +10,7 @@
   margin-bottom: 3rem;
   padding: 1.5rem 2rem;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   border-radius: 12px;
   background-image: linear-gradient(127deg,rgba(52, 79, 92, 1) 2%, rgba(76, 161, 111, 0.47) 50%, rgba(237, 221, 83, 0) 100%), url('/catalog-header-background.jpg');
   background-size: cover;
@@ -47,13 +47,6 @@
   margin: 0 auto;
 }
 
-.productsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
 // Responsive design
 @media (max-width: 768px) {
   .page {
@@ -62,11 +55,6 @@
   
   .title {
     font-size: 2rem;
-  }
-  
-  .productsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
   }
   
   .filterButtons {

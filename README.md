@@ -10,8 +10,10 @@
 - ✅ SCSS with CSS Modules
 - ✅ ESLint for code quality
 - ✅ Catalog page with products from Fake Store API
+- ✅ Infinite scroll pagination (6 initial, then 3 at a time)
 - ✅ Integrated navigation system
 - ✅ Responsive product cards with hover effects
+- ✅ Loading states and error handling
 
 ## 📋 Requirements
 
@@ -64,10 +66,24 @@ FauxCart/
 │   │   │   ├── Button.tsx
 │   │   │   ├── Button.module.scss
 │   │   │   └── index.ts
-│   │   └── ProductCard/     # ProductCard component
-│   │       ├── ProductCard.tsx
-│   │       ├── ProductCard.module.scss
+│   │   ├── CatalogContent/  # Hydration-safe catalog wrapper
+│   │   │   ├── CatalogContent.tsx
+│   │   │   ├── CatalogContent.module.scss
+│   │   │   └── index.ts
+│   │   ├── LoadingSpinner/  # Loading component
+│   │   │   ├── LoadingSpinner.tsx
+│   │   │   ├── LoadingSpinner.module.scss
+│   │   │   └── index.ts
+│   │   ├── ProductCard/     # ProductCard component
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductCard.module.scss
+│   │   │   └── index.ts
+│   │   └── ProductsList/    # Infinite scroll list
+│   │       ├── ProductsList.tsx
+│   │       ├── ProductsList.module.scss
 │   │       └── index.ts
+│   ├── hooks/
+│   │   └── useInfiniteProducts.ts  # Infinite scroll hook
 │   ├── types/
 │   │   └── Product.ts       # TypeScript interfaces for products
 │   └── styles/
