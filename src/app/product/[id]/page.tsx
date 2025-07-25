@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
+import ProtectedRoute from "../../../components/ProtectedRoute";
 import styles from "./page.module.scss";
 import Button from "../../../components/Button";
 import ProductDetail from "../../../components/ProductDetail/ProductDetail";
@@ -24,9 +25,8 @@ async function getProduct(id: string) {
       return null; // Empty response, product doesn't exist
     }
     
-    // Parse the product data
     const product = JSON.parse(text);
-    // Verify that the product has the necessary properties.
+    // Verify that the product has the necessary properties
     if (!product.id || !product.title) {
       console.error("Invalid product data received:", product);
       return null;
@@ -34,7 +34,7 @@ async function getProduct(id: string) {
     
     return product;
   } catch (error) {
-    // Handle network errors or JSON parsing errors
+    // Only log for real network or parsing errors
     if (error instanceof SyntaxError) {
       console.error("JSON parsing error:", error);
     } else {
@@ -51,50 +51,56 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product) {
     return (
-      <div className={styles.page}>
-        <header className={`${styles.header} ${styles.notFound}`}>
-          <Link href="/catalog" className={styles.backLink}>
-            <Button variant="rounded" size="medium">
-              {backBtnLabel}
-            </Button>
-          </Link>
-        </header>
-        <main className={styles.main}>
-          <div className={styles.errorMessage}>
-            <h1>Sorry, we couldn&apos;t find this product.</h1>
-            <p>The product may have been removed or the link is incorrect.</p>
-          </div>
-        </main>
-      </div>
+      <ProtectedRoute>
+        <div className={styles.page}>
+          <header className={`${styles.header} ${styles.notFound}`}>
+            <div className={styles.headerContent}>
+              <Link href="/catalog" className={styles.backLink}>
+                <Button variant="rounded" size="medium">
+                  {backBtnLabel}
+                </Button>
+              </Link>
+            </div>
+          </header>
+          <main className={styles.main}>
+            <div className={styles.errorMessage}>
+              <h1>Sorry, we couldn&apos;t find this product.</h1>
+              <p>The product may have been removed or the link is incorrect.</p>
+            </div>
+          </main>
+        </div>
+      </ProtectedRoute>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.headerBackground}>
-          <Image
-            src={product.image}
-            alt={product.title}
-            fill
-            style={{ objectFit: 'cover', opacity: 0.5, filter: 'blur(5px)' }}
-            sizes="100vw"
-          />
-        </div>
-        <div className={styles.headerContent}>
-          <Link href="/catalog" className={styles.backLink}>
-            <Button variant="rounded" size="medium">
-              {backBtnLabel}
-            </Button>
-          </Link>
-        </div>
-      </header>
+    <ProtectedRoute>
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.headerBackground}>
+            <Image
+              src={product.image}
+              alt={product.title}
+              fill
+              style={{ objectFit: 'cover', opacity: 0.3 }}
+              sizes="100vw"
+            />
+          </div>
+          <div className={styles.headerContent}>
+            <Link href="/catalog" className={styles.backLink}>
+              <Button variant="rounded" size="medium">
+                {backBtnLabel}
+              </Button>
+            </Link>
+          </div>
+        </header>
 
-      <main className={styles.main}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <ProductDetail product={product} />
-        </Suspense>
-      </main>
-    </div>
+        <main className={styles.main}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <ProductDetail product={product} />
+          </Suspense>
+        </main>
+      </div>
+    </ProtectedRoute>
   );
 }
