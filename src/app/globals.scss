@@ -9,6 +9,12 @@ $input-background-light: #f5f5f5;
 $input-background-dark: #342E45;
 $header-title-color-light: #ededed;
 $header-title-color-dark: #ededed;
+$border-color-light: #e0e0e0;
+$border-color-dark: #333333;
+$hover-bg-light: #f5f5f5;
+$hover-bg-dark: #2a2a2a;
+$active-bg-light: #e5e5e5;
+$active-bg-dark: #1a1a1a;
 
 // Mixins
 @mixin font-smoothing {
@@ -29,6 +35,9 @@ $header-title-color-dark: #ededed;
   --header-border-color: #{$header-border-color};
   --input-background: #{$input-background-light};
   --header-title-color: #{$header-title-color-light};
+  --border-color: #{$border-color-light};
+  --hover-bg: #{$hover-bg-light};
+  --active-bg: #{$active-bg-light};
 
   @include dark-theme {
     --background: #{$background-dark};
@@ -36,6 +45,9 @@ $header-title-color-dark: #ededed;
     --header-border-color: #{$header-border-color-dark};
     --input-background: #{$input-background-dark};
     --header-title-color: #{$header-title-color-dark};
+    --border-color: #{$border-color-dark};
+    --hover-bg: #{$hover-bg-dark};
+    --active-bg: #{$active-bg-dark};
   }
 }
 

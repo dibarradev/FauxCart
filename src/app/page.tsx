@@ -50,13 +50,15 @@ export default function Home() {
               Welcome back to <span className={styles.brand}>FauxCart</span>
             </h1>
             <div className={styles.userInfo}>
-              <span className={styles.userEmail}>{user.email}</span>
-              <button 
-                onClick={signOut} 
-                className={styles.signOutButton}
+              <span 
+                className={styles.userEmail}
+                title={user.email || undefined}
               >
+                {user.email}
+              </span>
+              <Button variant="outline" size="small" onClick={signOut}>
                 Sign out
-              </button>
+              </Button>
             </div>
           </div>
           

@@ -1,0 +1,50 @@
+@use '../../styles/variables' as *;
+
+.userHeader {
+  background: var(--background);
+  padding: 0.75rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userEmail {
+  color: var(--foreground);
+  font-size: 0.875rem;
+  opacity: 0.8;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  
+  @media (max-width: 768px) {
+    max-width: 450px;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    max-width: 220px;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .userHeader {
+    padding: 0.5rem 1rem;
+  }
+  
+  .userInfo {
+    gap: 0.75rem;
+  }
+}
