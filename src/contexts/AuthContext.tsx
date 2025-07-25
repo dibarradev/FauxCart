@@ -1,13 +1,19 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { 
-  User, 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react';
+import {
+  User,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
-  AuthError
+  AuthError,
 } from 'firebase/auth';
 import { getFirebaseAuth } from '../lib/firebase-client';
 
@@ -30,8 +36,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       const auth = getFirebaseAuth();
-      
-      unsubscribe = onAuthStateChanged(auth, (user) => {
+
+      unsubscribe = onAuthStateChanged(auth, user => {
         setUser(user);
         setLoading(false);
       });
@@ -81,14 +87,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     loading,
     signIn,
     signUp,
-    signOut
+    signOut,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

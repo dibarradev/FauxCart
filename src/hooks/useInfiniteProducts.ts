@@ -28,11 +28,13 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
       }
       const data: Product[] = await response.json();
       setAllProducts(data);
-      
+
       // Extract unique categories
-      const uniqueCategories = Array.from(new Set(data.map(product => product.category)));
+      const uniqueCategories = Array.from(
+        new Set(data.map(product => product.category))
+      );
       setCategories(uniqueCategories);
-      
+
       return data;
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -47,15 +49,20 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
 
     // Filter by category
     if (selectedCategory) {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(
+        product => product.category === selectedCategory
+      );
     }
 
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        product =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          product.category.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -65,14 +72,14 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
   // Load initial products
   const loadInitialProducts = useCallback(async () => {
     setLoading(true);
-    
+
     if (allProducts.length === 0) {
       await fetchAllProducts();
     }
-    
+
     const filtered = getFilteredProducts();
     filteredProductsRef.current = filtered;
-    
+
     const initialProducts = filtered.slice(0, INITIAL_PRODUCTS);
     setProducts(initialProducts);
     loadedCountRef.current = INITIAL_PRODUCTS;
@@ -84,11 +91,14 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
   const loadMore = useCallback(() => {
     if (!loading && hasMore && filteredProductsRef.current.length > 0) {
       setLoading(true);
-      
+
       const currentCount = loadedCountRef.current;
       const nextCount = currentCount + LOAD_MORE_PRODUCTS;
-      const newProducts = filteredProductsRef.current.slice(currentCount, nextCount);
-      
+      const newProducts = filteredProductsRef.current.slice(
+        currentCount,
+        nextCount
+      );
+
       setProducts(prev => [...prev, ...newProducts]);
       loadedCountRef.current = nextCount;
       setHasMore(nextCount < filteredProductsRef.current.length);
@@ -110,7 +120,7 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
     if (allProducts.length > 0) {
       const filtered = getFilteredProducts();
       filteredProductsRef.current = filtered;
-      
+
       const initialProducts = filtered.slice(0, INITIAL_PRODUCTS);
       setProducts(initialProducts);
       loadedCountRef.current = INITIAL_PRODUCTS;
@@ -130,6 +140,6 @@ export function useInfiniteProducts(props: UseInfiniteProductsProps = {}) {
     hasMore,
     loadMore,
     categories,
-    loadAllFilteredProducts
+    loadAllFilteredProducts,
   };
 }

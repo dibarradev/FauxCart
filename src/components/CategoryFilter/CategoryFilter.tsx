@@ -10,12 +10,19 @@ interface CategoryFilterProps {
   onCategoryChange: (category: string) => void;
 }
 
-export default function CategoryFilter({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) {
-  const handleCategoryClick = useCallback((category: string) => {
-    // If clicking the same category, clear the filter
-    const newCategory = selectedCategory === category ? '' : category;
-    onCategoryChange(newCategory);
-  }, [selectedCategory, onCategoryChange]);
+export default function CategoryFilter({
+  categories,
+  selectedCategory,
+  onCategoryChange,
+}: CategoryFilterProps) {
+  const handleCategoryClick = useCallback(
+    (category: string) => {
+      // If clicking the same category, clear the filter
+      const newCategory = selectedCategory === category ? '' : category;
+      onCategoryChange(newCategory);
+    },
+    [selectedCategory, onCategoryChange]
+  );
 
   const formatCategoryName = (category: string) => {
     return category
@@ -39,7 +46,7 @@ export default function CategoryFilter({ categories, selectedCategory, onCategor
         >
           All Categories
         </Button>
-        {categories.map((category) => (
+        {categories.map(category => (
           <Button
             key={category}
             variant={selectedCategory === category ? 'primary' : 'secondary'}

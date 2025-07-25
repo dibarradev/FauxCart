@@ -1,13 +1,13 @@
-import { Suspense } from "react";
-import Image from "next/image";
-import ProtectedRoute from "../../../components/ProtectedRoute";
-import UserHeader from "../../../components/UserHeader";
-import styles from "./page.module.scss";
-import Button from "../../../components/Button";
-import ProductDetail from "../../../components/ProductDetail/ProductDetail";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Link from "next/link";
-import type { Metadata } from "next";
+import { Suspense } from 'react';
+import Image from 'next/image';
+import ProtectedRoute from '../../../components/ProtectedRoute';
+import UserHeader from '../../../components/UserHeader';
+import styles from './page.module.scss';
+import Button from '../../../components/Button';
+import ProductDetail from '../../../components/ProductDetail/ProductDetail';
+import LoadingSpinner from '../../../components/LoadingSpinner';
+import Link from 'next/link';
+import type { Metadata } from 'next';
 
 interface ProductPageProps {
   params: Promise<{
@@ -21,71 +21,81 @@ async function getProduct(id: string) {
     if (!response.ok) {
       return null; // Product not found, don't log as error
     }
-    
+
     const text = await response.text();
     if (!text || text.trim() === '') {
       return null; // Empty response, product doesn't exist
     }
-    
+
     const product = JSON.parse(text);
     // Verify that the product has the necessary properties
     if (!product.id || !product.title) {
-      console.error("Invalid product data received:", product);
+      console.error('Invalid product data received:', product);
       return null;
     }
-    
+
     return product;
   } catch (error) {
     // Only log for real network or parsing errors
     if (error instanceof SyntaxError) {
-      console.error("JSON parsing error:", error);
+      console.error('JSON parsing error:', error);
     } else {
-      console.error("Network error fetching product:", error);
+      console.error('Network error fetching product:', error);
     }
     return null;
   }
 }
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
   const { id } = await params;
   const product = await getProduct(id);
 
   if (!product) {
     return {
-      title: "Product Not Found - FauxCart",
-      description: "The requested product could not be found. Browse our catalog for other amazing products.",
+      title: 'Product Not Found - FauxCart',
+      description:
+        'The requested product could not be found. Browse our catalog for other amazing products.',
       openGraph: {
-        title: "Product Not Found - FauxCart",
-        description: "The requested product could not be found. Browse our catalog for other amazing products.",
+        title: 'Product Not Found - FauxCart',
+        description:
+          'The requested product could not be found. Browse our catalog for other amazing products.',
         images: [
           {
             url: '/not-found-header-background.webp',
             width: 1200,
             height: 630,
             alt: 'Product Not Found',
-          }
+          },
         ],
       },
       twitter: {
         card: 'summary_large_image',
-        title: "Product Not Found - FauxCart",
-        description: "The requested product could not be found. Browse our catalog for other amazing products.",
+        title: 'Product Not Found - FauxCart',
+        description:
+          'The requested product could not be found. Browse our catalog for other amazing products.',
         images: ['/not-found-header-background.webp'],
       },
     };
   }
 
-  const truncatedDescription = product.description?.length > 155 
-    ? product.description.substring(0, 155) + '...' 
-    : product.description;
+  const truncatedDescription =
+    product.description?.length > 155
+      ? product.description.substring(0, 155) + '...'
+      : product.description;
 
   return {
     title: `${product.title} - FauxCart`,
-    description: truncatedDescription || `Discover ${product.title} in our online store. Check out details, pricing, and customer ratings.`,
+    description:
+      truncatedDescription ||
+      `Discover ${product.title} in our online store. Check out details, pricing, and customer ratings.`,
     keywords: [product.category, product.title, 'online shopping', 'ecommerce'],
     openGraph: {
       title: `${product.title} - FauxCart`,
-      description: truncatedDescription || `Discover ${product.title} in our online store.`,
+      description:
+        truncatedDescription ||
+        `Discover ${product.title} in our online store.`,
       type: 'website',
       images: [
         {
@@ -93,13 +103,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
           width: 800,
           height: 600,
           alt: product.title,
-        }
+        },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${product.title} - FauxCart`,
-      description: truncatedDescription || `Discover ${product.title} in our online store.`,
+      description:
+        truncatedDescription ||
+        `Discover ${product.title} in our online store.`,
       images: [product.image],
     },
   };
@@ -108,7 +120,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
   const product = await getProduct(id);
-  const backBtnLabel = "← Back to Catalog";
+  const backBtnLabel = '← Back to Catalog';
 
   if (!product) {
     return (

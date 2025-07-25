@@ -17,7 +17,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { signIn, signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,22 +76,24 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
         <h2 className={styles.title}>
           {isLogin ? 'Sign In' : 'Create Account'}
         </h2>
-        
+
         <p className={styles.subtitle}>
-          {isLogin 
-            ? 'Welcome back! Please sign in to continue shopping.' 
+          {isLogin
+            ? 'Welcome back! Please sign in to continue shopping.'
             : 'Join FauxCart and start your shopping!'}
         </p>
 
         {/* Auth form */}
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
+            <label htmlFor="email" className={styles.label}>
+              Email
+            </label>
             <input
               type="email"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               className={styles.input}
               placeholder="Enter your email"
               required
@@ -99,12 +101,14 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>Password</label>
+            <label htmlFor="password" className={styles.label}>
+              Password
+            </label>
             <input
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               className={styles.input}
               placeholder="Enter your password"
               required
@@ -120,7 +124,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={e => setConfirmPassword(e.target.value)}
                 className={styles.input}
                 placeholder="Confirm your password"
                 required
@@ -128,11 +132,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
             </div>
           )}
 
-          {error && (
-            <div className={styles.error}>
-              {error}
-            </div>
-          )}
+          {error && <div className={styles.error}>{error}</div>}
 
           <Button
             type="submit"
@@ -145,8 +145,10 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                 <LoadingSpinner />
                 <span>{isLogin ? 'Signing in...' : 'Creating account...'}</span>
               </div>
+            ) : isLogin ? (
+              'Sign In'
             ) : (
-              isLogin ? 'Sign In' : 'Create Account'
+              'Create Account'
             )}
           </Button>
         </form>

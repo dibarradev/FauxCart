@@ -18,11 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   type = 'button',
 }) => {
-  const classNames = [
-    styles.button,
-    styles[variant],
-    styles[size],
-  ].join(' ');
+  const classNames = [styles.button, styles[variant], styles[size]].join(' ');
 
   return (
     <button

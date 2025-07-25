@@ -1,11 +1,11 @@
 'use client';
 
-import ProtectedRoute from "../../components/ProtectedRoute";
-import UserHeader from "../../components/UserHeader";
-import styles from "./page.module.scss";
-import Button from "../../components/Button";
-import CatalogContent from "../../components/CatalogContent";
-import Link from "next/link";
+import ProtectedRoute from '../../components/ProtectedRoute';
+import UserHeader from '../../components/UserHeader';
+import styles from './page.module.scss';
+import Button from '../../components/Button';
+import CatalogContent from '../../components/CatalogContent';
+import Link from 'next/link';
 
 export default function Catalog() {
   return (

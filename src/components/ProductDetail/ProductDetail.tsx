@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Button from "../Button";
-import styles from "./ProductDetail.module.scss";
-import { Product } from "../../types/Product";
+import Image from 'next/image';
+import Button from '../Button';
+import styles from './ProductDetail.module.scss';
+import { Product } from '../../types/Product';
 
 interface ProductDetailProps {
   product: Product;
@@ -11,7 +11,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'USD',
     }).format(price);
   };
 
@@ -31,13 +31,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             style={{
               objectFit: 'contain',
               maxWidth: '100%',
-              height: 'auto'
+              height: 'auto',
             }}
             sizes="(max-width: 768px) 90vw, 500px"
             priority
           />
         </div>
-        
+
         <div className={styles.infoSection}>
           <span className={styles.category}>{product.category}</span>
           <h1 className={styles.title}>{product.title}</h1>

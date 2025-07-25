@@ -13,7 +13,14 @@
   margin: 0 auto 2rem;
   border-radius: 12px;
   min-height: 9.125rem;
-  background-image: linear-gradient(127deg,rgba(52, 79, 92, 1) 2%, rgba(76, 161, 111, 0.47) 50%, rgba(237, 221, 83, 0) 100%), url('/catalog-header-background.webp');
+  background-image:
+    linear-gradient(
+      127deg,
+      rgba(52, 79, 92, 1) 2%,
+      rgba(76, 161, 111, 0.47) 50%,
+      rgba(237, 221, 83, 0) 100%
+    ),
+    url('/catalog-header-background.webp');
   background-size: cover;
   background-position: center;
 }
@@ -24,7 +31,7 @@
   color: var(--foreground);
   text-decoration: none;
   font-weight: 500;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -56,11 +63,11 @@
   .page {
     padding: 1rem;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
+
   .filterButtons {
     justify-content: center;
   }

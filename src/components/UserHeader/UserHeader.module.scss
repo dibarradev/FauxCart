@@ -27,12 +27,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 200px;
-  
+
   @media (max-width: 768px) {
     max-width: 450px;
     font-size: 0.8rem;
   }
-  
+
   @media (max-width: 480px) {
     max-width: 220px;
   }
@@ -43,7 +43,7 @@
   .userHeader {
     padding: 0.5rem 1rem;
   }
-  
+
   .userInfo {
     gap: 0.75rem;
   }
