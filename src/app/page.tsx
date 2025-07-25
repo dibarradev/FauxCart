@@ -1,5 +1,6 @@
 import styles from "./page.module.scss";
 import Button from "../components/Button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,9 +11,11 @@ export default function Home() {
             Welcome to <span className={styles.brand}>FauxCart</span>
           </h1>
 
-          <Button variant="primary" size="large">
-            Start Shopping
-          </Button>
+          <Link href="/catalog">
+            <Button variant="primary" size="large">
+              Start Shopping
+            </Button>
+          </Link>
         </div>
       </main>
     </div>
