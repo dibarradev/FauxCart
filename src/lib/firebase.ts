@@ -11,6 +11,18 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || ''
 };
 
+// Debug: Log environment variables (only keys, not values)
+if (typeof window !== 'undefined') {
+  console.log('Firebase Environment Check:', {
+    NEXT_PUBLIC_FIREBASE_API_KEY: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: !!process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: !!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: !!process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: !!process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    NEXT_PUBLIC_FIREBASE_APP_ID: !!process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  });
+}
+
 // Validate Firebase configuration
 const requiredEnvVars = [
   'NEXT_PUBLIC_FIREBASE_API_KEY',
@@ -23,11 +35,7 @@ const requiredEnvVars = [
 
 const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
-if (missingEnvVars.length > 0 && typeof window !== 'undefined') {
-  console.error('Missing Firebase environment variables:', missingEnvVars);
-}
-
-// Initialize Firebase only if all required env vars are present
+// Initialize Firebase 
 let app: FirebaseApp | undefined;
 let auth: Auth | undefined;
 
@@ -35,11 +43,14 @@ try {
   if (missingEnvVars.length === 0) {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
+    console.log('✅ Firebase initialized successfully');
   } else {
-    console.warn('Firebase not initialized due to missing environment variables');
+    console.error('❌ Firebase not initialized. Missing variables:', missingEnvVars);
+    throw new Error(`Firebase not initialized. Please check your environment variables. Missing: ${missingEnvVars.join(', ')}`);
   }
 } catch (error) {
-  console.error('Firebase initialization error:', error);
+  console.error('🔥 Firebase initialization error:', error);
+  throw error;
 }
 
 export { auth };
