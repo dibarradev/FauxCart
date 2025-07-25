@@ -10,10 +10,13 @@
 - ✅ SCSS with CSS Modules
 - ✅ ESLint for code quality
 - ✅ Catalog page with products from Fake Store API
+- ✅ Individual product detail pages with dynamic routing
+- ✅ Product images displayed in header backgrounds
 - ✅ Infinite scroll pagination (6 initial, then 3 at a time)
 - ✅ Integrated navigation system
 - ✅ Responsive product cards with hover effects
 - ✅ Loading states and error handling
+- ✅ SEO-friendly URLs for each product
 
 ## 📋 Requirements
 
@@ -59,6 +62,10 @@ FauxCart/
 ├── src/
 │   ├── app/
 │   │   ├── catalog/         # Catalog page with Fake Store API integration
+│   │   ├── product/
+│   │   │   └── [id]/        # Dynamic product detail pages
+│   │   │       ├── page.tsx
+│   │   │       └── page.module.scss
 │   │   ├── layout.tsx       # Main layout
 │   │   └── page.tsx         # Home page
 │   ├── components/
@@ -74,9 +81,13 @@ FauxCart/
 │   │   │   ├── LoadingSpinner.tsx
 │   │   │   ├── LoadingSpinner.module.scss
 │   │   │   └── index.ts
-│   │   ├── ProductCard/     # ProductCard component
+│   │   ├── ProductCard/     # ProductCard component with navigation
 │   │   │   ├── ProductCard.tsx
 │   │   │   ├── ProductCard.module.scss
+│   │   │   └── index.ts
+│   │   ├── ProductDetail/   # Product detail component
+│   │   │   ├── ProductDetail.tsx
+│   │   │   ├── ProductDetail.module.scss
 │   │   │   └── index.ts
 │   │   └── ProductsList/    # Infinite scroll list
 │   │       ├── ProductsList.tsx
@@ -106,11 +117,33 @@ FauxCart/
 
 - **Home Page** (`/`) - Initial page
 - **Catalog** (`/catalog`) - Product list with products from Fake Store API
+- **Product Detail** (`/product/[id]`) - Individual product page with detailed information
+  - Dynamic routing with product ID
+  - Product image as header background
+  - Complete product information (title, description, price, rating)
+  - Navigation back to catalog
 
 ## 🌐 API Integration
 
 This project integrates with the **Fake Store API** to display product data:
 - **Base URL**: `https://fakestoreapi.com`
-- **Products endpoint**: `/products`
-- **Features**: Product images, names, prices, and categories
-- **Error handling**: Graceful fallbacks when API is unavailable
+- **Products endpoint**: `/products` and `/products/{id}`
+- **Features**: Product images, names, prices, categories, descriptions, and ratings
+- **Error handling**: Graceful fallbacks when API is unavailable or product not found
+
+## 🛍️ Product Detail Features
+
+The individual product pages (`/product/[id]`) include:
+
+- **Dynamic Header**: Product image displayed as background with gradient overlay
+- **Complete Product Information**:
+  - Product title and category
+  - Star rating display with review count
+  - Full product description
+  - Formatted pricing in USD
+- **Interactive Elements**:
+  - "Add to Cart" button
+  - "Back to Catalog" navigation
+- **Responsive Design**: Optimized for desktop and mobile devices
+- **Error States**: Custom 404 page for non-existent products
+- **SEO Optimized**: Each product has its own URL for sharing and bookmarking
