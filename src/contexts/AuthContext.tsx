@@ -9,7 +9,7 @@ import {
   signOut as firebaseSignOut,
   AuthError
 } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { getFirebaseAuth } from '../lib/firebase-client';
 
 interface AuthContextType {
   user: User | null;
@@ -26,25 +26,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!auth) {
+    let unsubscribe: (() => void) | undefined;
+
+    try {
+      const auth = getFirebaseAuth();
+      
+      unsubscribe = onAuthStateChanged(auth, (user) => {
+        setUser(user);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.error('Error setting up auth listener:', error);
       setLoading(false);
-      return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    if (!auth) {
-      throw new Error('Firebase not initialized. Please check your environment variables.');
-    }
-    
     try {
+      const auth = getFirebaseAuth();
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       const authError = error as AuthError;
@@ -53,11 +58,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (email: string, password: string) => {
-    if (!auth) {
-      throw new Error('Firebase not initialized. Please check your environment variables.');
-    }
-    
     try {
+      const auth = getFirebaseAuth();
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       const authError = error as AuthError;
@@ -66,11 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    if (!auth) {
-      throw new Error('Firebase not initialized. Please check your environment variables.');
-    }
-    
     try {
+      const auth = getFirebaseAuth();
       await firebaseSignOut(auth);
     } catch (error) {
       console.error('Error signing out:', error);
