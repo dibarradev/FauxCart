@@ -56,7 +56,7 @@
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -67,7 +67,7 @@
   @include button-base;
   background-color: $primary-color;
   color: white;
-  
+
   &:hover:not(:disabled) {
     background-color: color.adjust($primary-color, $lightness: -10%);
     transform: translateY(-1px);

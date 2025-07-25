@@ -1,11 +1,11 @@
 'use client';
 
-import { useAuth } from "../contexts/AuthContext";
-import AuthForm from "../components/AuthForm";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Button from "../components/Button";
-import Link from "next/link";
-import styles from "./page.module.scss";
+import { useAuth } from '../contexts/AuthContext';
+import AuthForm from '../components/AuthForm';
+import LoadingSpinner from '../components/LoadingSpinner';
+import Button from '../components/Button';
+import Link from 'next/link';
+import styles from './page.module.scss';
 
 export default function Home() {
   const { user, loading, signOut } = useAuth();
@@ -32,7 +32,8 @@ export default function Home() {
               Welcome to <span className={styles.brand}>FauxCart</span>
             </h1>
             <p className={styles.description}>
-              Your online shopping destination. Sign in or create an account to start shopping!
+              Your online shopping destination. Sign in or create an account to
+              start shopping!
             </p>
             <AuthForm />
           </div>
@@ -50,7 +51,7 @@ export default function Home() {
               Welcome back to <span className={styles.brand}>FauxCart</span>
             </h1>
             <div className={styles.userInfo}>
-              <span 
+              <span
                 className={styles.userEmail}
                 title={user.email || undefined}
               >
@@ -61,7 +62,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          
+
           <p className={styles.description}>
             Ready to continue shopping? Browse our collection of products!
           </p>

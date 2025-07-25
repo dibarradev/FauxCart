@@ -14,11 +14,18 @@ export default function ProductsList() {
   // State for search and filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  
+
   // Custom hook to fetch products with infinite scroll
-  const { products, loading, hasMore, loadMore, categories, loadAllFilteredProducts } = useInfiniteProducts({
+  const {
+    products,
+    loading,
+    hasMore,
+    loadMore,
+    categories,
+    loadAllFilteredProducts,
+  } = useInfiniteProducts({
     searchTerm,
-    selectedCategory
+    selectedCategory,
   });
 
   // Set mounted state after the component mounts
@@ -27,22 +34,28 @@ export default function ProductsList() {
   }, []);
 
   // Handle search
-  const handleSearch = useCallback((term: string) => {
-    setSearchTerm(term);
-    // If there's a search term or filter, load all results immediately
-    if (term || selectedCategory) {
-      loadAllFilteredProducts();
-    }
-  }, [selectedCategory, loadAllFilteredProducts]);
+  const handleSearch = useCallback(
+    (term: string) => {
+      setSearchTerm(term);
+      // If there's a search term or filter, load all results immediately
+      if (term || selectedCategory) {
+        loadAllFilteredProducts();
+      }
+    },
+    [selectedCategory, loadAllFilteredProducts]
+  );
 
   // Handle category filter
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    // If there's a search term or filter, load all results immediately
-    if (searchTerm || category) {
-      loadAllFilteredProducts();
-    }
-  }, [searchTerm, loadAllFilteredProducts]);
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      // If there's a search term or filter, load all results immediately
+      if (searchTerm || category) {
+        loadAllFilteredProducts();
+      }
+    },
+    [searchTerm, loadAllFilteredProducts]
+  );
 
   // Set mounted state after the component mounts
   useEffect(() => {
@@ -67,7 +80,7 @@ export default function ProductsList() {
   // Add scroll event listener
   useEffect(() => {
     if (!isMounted) return;
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll, isMounted]);
@@ -95,23 +108,21 @@ export default function ProductsList() {
     return (
       <div className={styles.container}>
         <SearchBar onSearch={handleSearch} />
-        <CategoryFilter 
+        <CategoryFilter
           categories={categories}
           selectedCategory={selectedCategory}
           onCategoryChange={handleCategoryChange}
         />
         <div className={styles.emptyState}>
           <h3>
-            {searchTerm || selectedCategory 
-              ? "No products found matching your criteria." 
-              : "Sorry, no products available at the moment."
-            }
+            {searchTerm || selectedCategory
+              ? 'No products found matching your criteria.'
+              : 'Sorry, no products available at the moment.'}
           </h3>
           <p>
-            {searchTerm || selectedCategory 
-              ? "Try adjusting your search or filter options." 
-              : "Please try again later."
-            }
+            {searchTerm || selectedCategory
+              ? 'Try adjusting your search or filter options.'
+              : 'Please try again later.'}
           </p>
         </div>
       </div>
@@ -121,32 +132,28 @@ export default function ProductsList() {
   return (
     <div className={styles.container}>
       <SearchBar onSearch={handleSearch} />
-      <CategoryFilter 
+      <CategoryFilter
         categories={categories}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      
+
       <div className={styles.productsGrid}>
-        {products.map((product) => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-          />
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      
+
       {loading && hasMore && !searchTerm && !selectedCategory && (
         <LoadingSpinner />
       )}
-      
+
       {!hasMore && products.length > 0 && (
         <div className={styles.endMessage}>
           <p>
-            {searchTerm || selectedCategory 
-              ? `Showing all ${products.length} results.` 
-              : "You have reached the end of the products."
-            }
+            {searchTerm || selectedCategory
+              ? `Showing all ${products.length} results.`
+              : 'You have reached the end of the products.'}
           </p>
         </div>
       )}

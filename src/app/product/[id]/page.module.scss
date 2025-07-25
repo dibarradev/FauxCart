@@ -1,5 +1,5 @@
-@use "../../../styles/variables" as *;
-@use "../../../styles/mixins" as *;
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
 
 .page {
   min-height: 100vh;
@@ -45,7 +45,7 @@
   right: 0;
   bottom: 0;
   z-index: 0;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -53,7 +53,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(127deg, rgba(2, 27, 39, 0.8) 2%, rgba(76, 161, 111, 0.6) 50%, rgba(237, 221, 83, 0.3) 100%);
+    background: linear-gradient(
+      127deg,
+      rgba(2, 27, 39, 0.8) 2%,
+      rgba(76, 161, 111, 0.6) 50%,
+      rgba(237, 221, 83, 0.3) 100%
+    );
     z-index: 1;
   }
 }
@@ -82,11 +87,11 @@
 
 .backLink {
   display: inline-block;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
   color: white;
   text-decoration: none;
   font-weight: 500;
-  
+
   &:hover {
     text-decoration: underline;
   }

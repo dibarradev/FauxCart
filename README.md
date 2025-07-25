@@ -9,9 +9,10 @@
 - ✅ TypeScript for type safety
 - ✅ SCSS with CSS Modules
 - ✅ ESLint for code quality
-- ✅ **Firebase Authentication** with email/password
-- ✅ **Protected routes** system
-- ✅ **User session management** with auto-persistence
+- ✅ Prettier with auto-formatting and pre-commit hooks
+- ✅ Firebase Authentication with email/password
+- ✅ Protected routes system
+- ✅ User session management with auto-persistence
 - ✅ Catalog page with products from Fake Store API
 - ✅ Individual product detail pages with dynamic routing
 - ✅ Product images displayed in header backgrounds
@@ -38,11 +39,13 @@
 Before starting the application, you need to configure Firebase Authentication:
 
 ### 1. Create Firebase Project
+
 1. Go to [Firebase Console](https://console.firebase.google.com/)
 2. Click **"Create a project"** or select an existing one
 3. Follow the setup wizard (you can skip Google Analytics)
 
 ### 2. Enable Authentication
+
 1. In your Firebase project, go to **Authentication** in the left sidebar
 2. Click **"Get started"**
 3. Go to **Sign-in method** tab
@@ -50,14 +53,16 @@ Before starting the application, you need to configure Firebase Authentication:
 5. Click **"Save"**
 
 ### 3. Get Configuration Keys
+
 1. Go to **Project Settings** (gear icon) → **General** tab
 2. Scroll down to **"Your apps"** section
-3. Click **"Add app"** → **Web app** (`</>`) 
+3. Click **"Add app"** → **Web app** (`</>`)
 4. Register your app with a name (e.g., "FauxCart")
 5. **Don't check** "Also set up Firebase Hosting"
 6. Copy the configuration object
 
 ### 4. Configure Environment Variables
+
 1. In the project root, copy `.env.example` to `.env.local`:
    ```bash
    cp .env.example .env.local
@@ -77,12 +82,14 @@ Before starting the application, you need to configure Firebase Authentication:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/FauxCart.git
    cd FauxCart
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -92,6 +99,7 @@ Before starting the application, you need to configure Firebase Authentication:
 3. **Configure Firebase** (see Firebase Setup section above)
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    # or
@@ -104,18 +112,21 @@ Before starting the application, you need to configure Firebase Authentication:
 ## 🔐 Authentication System
 
 ### User Registration & Login
+
 - Create new accounts with email and password
 - Sign in to existing accounts
 - Automatic form validation and error handling
 - Loading states during authentication
 
 ### Protected Routes
+
 - `/catalog` - Product catalog (requires authentication)
 - `/product/[id]` - Individual product details (requires authentication)
 - Automatic redirection to login page for unauthenticated users
 - Seamless return to intended page after successful login
 
 ### User Session Management
+
 - Persistent authentication state across browser sessions
 - Automatic sign-out functionality
 - Real-time authentication status updates
@@ -123,12 +134,14 @@ Before starting the application, you need to configure Firebase Authentication:
 ## � Search & Filter Features
 
 ### Product Search
+
 - **Real-time search** across product names, descriptions, and categories
 - **Smart search bar** with clear functionality and visual feedback
 - **Instant results** - search updates as you type
 - **Auto-load all results** when searching (bypasses pagination for complete results)
 
 ### Category Filtering
+
 - **Dynamic category buttons** generated from API data
 - **Visual filter state** with active/inactive button styling
 - **"All Categories" option** to clear filters
@@ -136,17 +149,58 @@ Before starting the application, you need to configure Firebase Authentication:
 - **Responsive design** that works on all screen sizes
 
 ### Combined Search & Filter
+
 - **Simultaneous search and filter** functionality
 - **Intelligent pagination** - normal infinite scroll when browsing, full results when filtering
 - **Clear visual feedback** for filtered states
 - **Empty state handling** with helpful messages
 
-## �🛠️ Available Scripts
+## 📋 Code Formatting with Prettier
+
+This project uses **Prettier** for consistent code formatting across all files.
+
+### ✨ Auto-formatting Features
+
+- **Format on save**: Automatically formats code when you save files in VS Code
+- **Pre-commit hooks**: Code is automatically formatted before each commit
+- **Consistent style**: Enforces unified formatting rules across the entire project
+
+### 🚀 Quick Commands
+
+```bash
+# Format all files in the project
+npm run format
+
+# Check if files are properly formatted
+npm run format:check
+```
+
+### ⚙️ Configuration
+
+- **Semi-colons**: Always add
+- **Quotes**: Single quotes for JS/TS, double quotes for JSX
+- **Print width**: 80 characters
+- **Tab width**: 2 spaces
+- **Trailing commas**: ES5 compatible
+
+### 💡 VS Code Setup
+
+1. Install the **Prettier - Code formatter** extension
+2. Formatting will happen automatically on save
+3. Manual formatting: `Shift + Alt + F`
+
+**No manual formatting needed!** The pre-commit hook ensures all code is properly formatted. 🎉
+
+For detailed Prettier configuration and usage, see [PRETTIER_GUIDE.md](./PRETTIER_GUIDE.md).
+
+## 🛠️ Available Scripts
 
 - `npm run dev` - Starts the development server
 - `npm run build` - Builds the application for production
 - `npm run start` - Starts the production server
 - `npm run lint` - Runs ESLint to check the code
+- `npm run format` - Format all files with Prettier
+- `npm run format:check` - Check if files are formatted correctly
 
 ## 📁 Project Structure
 
@@ -228,6 +282,8 @@ FauxCart/
 - **SCSS** - CSS preprocessor with enhanced syntax
 - **Firebase** - Authentication and backend services
 - **ESLint** - Linting tool for JavaScript/TypeScript
+- **Prettier** - Code formatter for consistent styling
+- **Husky** - Git hooks for automated formatting
 - **Fake Store API** - External product data source
 
 ## 🔗 Navigation
@@ -243,6 +299,7 @@ FauxCart/
 ## 🌐 API Integration
 
 This project integrates with the **Fake Store API** to display product data:
+
 - **Base URL**: `https://fakestoreapi.com`
 - **Products endpoint**: `/products` and `/products/{id}`
 - **Features**: Product images, names, prices, categories, descriptions, and ratings
@@ -269,18 +326,21 @@ The individual product pages (`/product/[id]`) include:
 ## 🚀 SEO & Social Media Optimization
 
 ### Meta Tags & Open Graph
+
 - **Complete Open Graph** implementation for rich social media previews
 - **Twitter Card** optimization for enhanced Twitter/X sharing
 - **Dynamic meta tags** for product pages with specific titles, descriptions, and images
 - **JSON-LD structured data** for Google rich snippets and better search indexing
 
 ### PWA Features
+
 - **Progressive Web App** manifest for mobile app-like experience
 - **Responsive viewport** configuration for all devices
 - **Theme color** and app icon support
 - **Offline-ready** architecture with service worker capabilities
 
 ### Search Engine Optimization
+
 - **XML sitemap** (`/sitemap.xml`) for search engine discovery
 - **Robots.txt** with proper crawling instructions
 - **Canonical URLs** to prevent duplicate content issues
@@ -309,6 +369,7 @@ The individual product pages (`/product/[id]`) include:
 ### Environment Variables
 
 Make sure your `.env.local` file contains all required Firebase variables:
+
 ```bash
 NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
@@ -326,4 +387,5 @@ This is a Next.js application that can be deployed on various platforms:
 - **Netlify**
 
 ### Environment Variables for Production
+
 Remember to configure the same environment variables in your deployment platform.

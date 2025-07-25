@@ -1,8 +1,8 @@
-import { MetadataRoute } from 'next'
- 
+import { MetadataRoute } from 'next';
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://fauxcartshop.netlify.app/'
-  
+  const baseUrl = 'https://fauxcartshop.netlify.app/';
+
   return [
     {
       url: baseUrl,
@@ -16,5 +16,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.8,
     },
-  ]
+  ];
 }
