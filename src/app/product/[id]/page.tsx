@@ -6,6 +6,7 @@ import Button from "../../../components/Button";
 import ProductDetail from "../../../components/ProductDetail/ProductDetail";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 interface ProductPageProps {
   params: Promise<{
@@ -42,6 +43,65 @@ async function getProduct(id: string) {
     }
     return null;
   }
+}
+
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const product = await getProduct(id);
+
+  if (!product) {
+    return {
+      title: "Product Not Found - FauxCart",
+      description: "The requested product could not be found. Browse our catalog for other amazing products.",
+      openGraph: {
+        title: "Product Not Found - FauxCart",
+        description: "The requested product could not be found. Browse our catalog for other amazing products.",
+        images: [
+          {
+            url: '/not-found-header-background.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Product Not Found',
+          }
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: "Product Not Found - FauxCart",
+        description: "The requested product could not be found. Browse our catalog for other amazing products.",
+        images: ['/not-found-header-background.webp'],
+      },
+    };
+  }
+
+  const truncatedDescription = product.description?.length > 155 
+    ? product.description.substring(0, 155) + '...' 
+    : product.description;
+
+  return {
+    title: `${product.title} - FauxCart`,
+    description: truncatedDescription || `Discover ${product.title} in our online store. Check out details, pricing, and customer ratings.`,
+    keywords: [product.category, product.title, 'online shopping', 'ecommerce'],
+    openGraph: {
+      title: `${product.title} - FauxCart`,
+      description: truncatedDescription || `Discover ${product.title} in our online store.`,
+      type: 'website',
+      images: [
+        {
+          url: product.image,
+          width: 800,
+          height: 600,
+          alt: product.title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${product.title} - FauxCart`,
+      description: truncatedDescription || `Discover ${product.title} in our online store.`,
+      images: [product.image],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
