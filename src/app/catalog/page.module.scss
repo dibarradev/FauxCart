@@ -33,7 +33,7 @@
 .title {
   font-size: 3rem;
   font-weight: bold;
-  color: var(--foreground);
+  color: var(--header-title-color);
 
   @media (max-width: 768px) {
     margin-bottom: 1.125rem;
