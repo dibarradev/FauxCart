@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.initialLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--foreground);
+  
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  p {
+    opacity: 0.7;
+    font-size: 1.1rem;
+  }
+}
+
+.endMessage {
+  text-align: center;
+  padding: 2rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  
+  p {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}

@@ -9,8 +9,11 @@
 - ✅ TypeScript for type safety
 - ✅ SCSS with CSS Modules
 - ✅ ESLint for code quality
-- ✅ Catalog page with products
+- ✅ Catalog page with products from Fake Store API
+- ✅ Infinite scroll pagination (6 initial, then 3 at a time)
 - ✅ Integrated navigation system
+- ✅ Responsive product cards with hover effects
+- ✅ Loading states and error handling
 
 ## 📋 Requirements
 
@@ -55,7 +58,7 @@
 FauxCart/
 ├── src/
 │   ├── app/
-│   │   ├── catalog/         # Catalog page
+│   │   ├── catalog/         # Catalog page with Fake Store API integration
 │   │   ├── layout.tsx       # Main layout
 │   │   └── page.tsx         # Home page
 │   ├── components/
@@ -63,10 +66,26 @@ FauxCart/
 │   │   │   ├── Button.tsx
 │   │   │   ├── Button.module.scss
 │   │   │   └── index.ts
-│   │   └── ProductCard/     # ProductCard component
-│   │       ├── ProductCard.tsx
-│   │       ├── ProductCard.module.scss
+│   │   ├── CatalogContent/  # Hydration-safe catalog wrapper
+│   │   │   ├── CatalogContent.tsx
+│   │   │   ├── CatalogContent.module.scss
+│   │   │   └── index.ts
+│   │   ├── LoadingSpinner/  # Loading component
+│   │   │   ├── LoadingSpinner.tsx
+│   │   │   ├── LoadingSpinner.module.scss
+│   │   │   └── index.ts
+│   │   ├── ProductCard/     # ProductCard component
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductCard.module.scss
+│   │   │   └── index.ts
+│   │   └── ProductsList/    # Infinite scroll list
+│   │       ├── ProductsList.tsx
+│   │       ├── ProductsList.module.scss
 │   │       └── index.ts
+│   ├── hooks/
+│   │   └── useInfiniteProducts.ts  # Infinite scroll hook
+│   ├── types/
+│   │   └── Product.ts       # TypeScript interfaces for products
 │   └── styles/
 │       ├── _variables.scss  # SCSS variables
 │       └── _mixins.scss     # SCSS mixins
@@ -85,5 +104,13 @@ FauxCart/
 
 ## 🔗 Navigation
 
-- **Home Page** (`/`)
-- **Catalog** (`/catalog`)
+- **Home Page** (`/`) - Initial page
+- **Catalog** (`/catalog`) - Product list with products from Fake Store API
+
+## 🌐 API Integration
+
+This project integrates with the **Fake Store API** to display product data:
+- **Base URL**: `https://fakestoreapi.com`
+- **Products endpoint**: `/products`
+- **Features**: Product images, names, prices, and categories
+- **Error handling**: Graceful fallbacks when API is unavailable
