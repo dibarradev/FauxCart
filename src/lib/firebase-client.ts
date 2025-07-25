@@ -25,16 +25,7 @@ function getFirebaseApp(): FirebaseApp {
   }
 
   // Initialize Firebase
-  console.log('🔥 Initializing Firebase with config:', {
-    hasApiKey: !!firebaseConfig.apiKey,
-    hasAuthDomain: !!firebaseConfig.authDomain,
-    hasProjectId: !!firebaseConfig.projectId,
-    apiKeyPreview: firebaseConfig.apiKey.substring(0, 10) + '...'
-  });
-
-  const app = initializeApp(firebaseConfig);
-  console.log('✅ Firebase initialized successfully');
-  return app;
+  return initializeApp(firebaseConfig);
 }
 
 // Lazy auth getter

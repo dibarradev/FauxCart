@@ -11,19 +11,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '1:577100949373:web:e130d7e5a6223adf8a8e14'
 };
 
-// Debug: Log configuration status
-if (typeof window !== 'undefined') {
-  console.log('🔥 Firebase Environment Check:', {
-    hasApiKey: !!firebaseConfig.apiKey,
-    hasAuthDomain: !!firebaseConfig.authDomain,
-    hasProjectId: !!firebaseConfig.projectId,
-    hasStorageBucket: !!firebaseConfig.storageBucket,
-    hasMessagingSenderId: !!firebaseConfig.messagingSenderId,
-    hasAppId: !!firebaseConfig.appId,
-    apiKeyPreview: firebaseConfig.apiKey ? firebaseConfig.apiKey.substring(0, 10) + '...' : 'MISSING'
-  });
-}
-
 // Validate that we have all required fields
 const isValidConfig = firebaseConfig.apiKey && 
                      firebaseConfig.authDomain && 
@@ -40,19 +27,15 @@ try {
   if (isValidConfig) {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-    if (typeof window !== 'undefined') {
-      console.log('✅ Firebase initialized successfully');
-    }
   } else {
     const missingFields = Object.entries(firebaseConfig)
       .filter(([, value]) => !value)
       .map(([key]) => key);
     
-    console.error('❌ Firebase configuration incomplete. Missing:', missingFields);
     throw new Error(`Firebase not initialized. Missing configuration: ${missingFields.join(', ')}`);
   }
 } catch (error) {
-  console.error('🔥 Firebase initialization error:', error);
+  console.error('Firebase initialization error:', error);
   throw error;
 }
 
