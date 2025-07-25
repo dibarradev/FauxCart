@@ -1,0 +1,44 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.filterContainer {
+  width: 100%;
+  margin: 0 0 2rem;
+}
+
+.filterTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.categoryButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .filterContainer {
+    margin: 0 0 1.5rem;
+  }
+
+  .filterTitle {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .categoryButtons {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoryButtons {
+    justify-content: flex-start;
+  }
+}

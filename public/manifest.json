@@ -1,0 +1,23 @@
+{
+  "name": "FauxCart - Online Store",
+  "short_name": "FauxCart",
+  "description": "Modern e-commerce platform with secure authentication and curated product selection",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#342E45",
+  "orientation": "portrait-primary",
+  "categories": ["shopping", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "/",
+  "id": "fauxcart-app"
+}

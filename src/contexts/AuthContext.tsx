@@ -26,6 +26,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
@@ -35,6 +40,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Firebase not initialized. Please check your environment variables.');
+    }
+    
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -44,6 +53,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Firebase not initialized. Please check your environment variables.');
+    }
+    
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -53,6 +66,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+    if (!auth) {
+      throw new Error('Firebase not initialized. Please check your environment variables.');
+    }
+    
     try {
       await firebaseSignOut(auth);
     } catch (error) {
