@@ -1,5 +1,7 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@use 'sass:color';
+
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .button {
   @include button-base;
@@ -46,7 +48,7 @@
     color: white;
     
     &:hover:not(:disabled) {
-      background-color: darken($danger-color, 10%);
+      background-color: color.adjust($danger-color, $lightness: -10%);
       transform: translateY(-1px);
     }
   }
