@@ -1,52 +1,55 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 
-// Firebase Configuration - Ensure all environment variables are available
+// Firebase Configuration - Use direct values for production
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || '',
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || '',
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || ''
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || 'AIzaSyCJl5TlECF7GDIfHXgqVZ7at7TUQNfgNvE',
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || 'fauxcart-ae648.firebaseapp.com',
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'fauxcart-ae648',
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'fauxcart-ae648.firebasestorage.app',
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || '577100949373',
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '1:577100949373:web:e130d7e5a6223adf8a8e14'
 };
 
-// Debug: Log environment variables (only keys, not values)
+// Debug: Log configuration status
 if (typeof window !== 'undefined') {
-  console.log('Firebase Environment Check:', {
-    NEXT_PUBLIC_FIREBASE_API_KEY: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: !!process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID: !!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: !!process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: !!process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    NEXT_PUBLIC_FIREBASE_APP_ID: !!process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  console.log('🔥 Firebase Environment Check:', {
+    hasApiKey: !!firebaseConfig.apiKey,
+    hasAuthDomain: !!firebaseConfig.authDomain,
+    hasProjectId: !!firebaseConfig.projectId,
+    hasStorageBucket: !!firebaseConfig.storageBucket,
+    hasMessagingSenderId: !!firebaseConfig.messagingSenderId,
+    hasAppId: !!firebaseConfig.appId,
+    apiKeyPreview: firebaseConfig.apiKey ? firebaseConfig.apiKey.substring(0, 10) + '...' : 'MISSING'
   });
 }
 
-// Validate Firebase configuration
-const requiredEnvVars = [
-  'NEXT_PUBLIC_FIREBASE_API_KEY',
-  'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
-  'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
-  'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
-  'NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
-  'NEXT_PUBLIC_FIREBASE_APP_ID'
-];
-
-const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+// Validate that we have all required fields
+const isValidConfig = firebaseConfig.apiKey && 
+                     firebaseConfig.authDomain && 
+                     firebaseConfig.projectId && 
+                     firebaseConfig.storageBucket && 
+                     firebaseConfig.messagingSenderId && 
+                     firebaseConfig.appId;
 
 // Initialize Firebase 
 let app: FirebaseApp | undefined;
 let auth: Auth | undefined;
 
 try {
-  if (missingEnvVars.length === 0) {
+  if (isValidConfig) {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-    console.log('✅ Firebase initialized successfully');
+    if (typeof window !== 'undefined') {
+      console.log('✅ Firebase initialized successfully');
+    }
   } else {
-    console.error('❌ Firebase not initialized. Missing variables:', missingEnvVars);
-    throw new Error(`Firebase not initialized. Please check your environment variables. Missing: ${missingEnvVars.join(', ')}`);
+    const missingFields = Object.entries(firebaseConfig)
+      .filter(([, value]) => !value)
+      .map(([key]) => key);
+    
+    console.error('❌ Firebase configuration incomplete. Missing:', missingFields);
+    throw new Error(`Firebase not initialized. Missing configuration: ${missingFields.join(', ')}`);
   }
 } catch (error) {
   console.error('🔥 Firebase initialization error:', error);
