@@ -9,8 +9,9 @@
 - ✅ TypeScript for type safety
 - ✅ SCSS with CSS Modules
 - ✅ ESLint for code quality
-- ✅ Catalog page with products
+- ✅ Catalog page with products from Fake Store API
 - ✅ Integrated navigation system
+- ✅ Responsive product cards with hover effects
 
 ## 📋 Requirements
 
@@ -55,7 +56,7 @@
 FauxCart/
 ├── src/
 │   ├── app/
-│   │   ├── catalog/         # Catalog page
+│   │   ├── catalog/         # Catalog page with Fake Store API integration
 │   │   ├── layout.tsx       # Main layout
 │   │   └── page.tsx         # Home page
 │   ├── components/
@@ -67,6 +68,8 @@ FauxCart/
 │   │       ├── ProductCard.tsx
 │   │       ├── ProductCard.module.scss
 │   │       └── index.ts
+│   ├── types/
+│   │   └── Product.ts       # TypeScript interfaces for products
 │   └── styles/
 │       ├── _variables.scss  # SCSS variables
 │       └── _mixins.scss     # SCSS mixins
@@ -85,5 +88,13 @@ FauxCart/
 
 ## 🔗 Navigation
 
-- **Home Page** (`/`)
-- **Catalog** (`/catalog`)
+- **Home Page** (`/`) - Initial page
+- **Catalog** (`/catalog`) - Product list with products from Fake Store API
+
+## 🌐 API Integration
+
+This project integrates with the **Fake Store API** to display product data:
+- **Base URL**: `https://fakestoreapi.com`
+- **Products endpoint**: `/products`
+- **Features**: Product images, names, prices, and categories
+- **Error handling**: Graceful fallbacks when API is unavailable

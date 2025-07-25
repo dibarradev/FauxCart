@@ -1,34 +1,40 @@
 import Image from "next/image";
 import Button from "../Button";
 import styles from "./ProductCard.module.scss";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { Product } from "../../types/Product";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(price);
+  };
+
   return (
     <div className={styles.productCard}>
       <div className={styles.productImage}>
         <Image 
           src={product.image} 
-          alt={product.name}
-          width={80}
-          height={80}
+          alt={product.title}
+          width={200}
+          height={200}
+          style={{
+            objectFit: 'contain',
+            maxWidth: '100%',
+            height: 'auto'
+          }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className={styles.productInfo}>
         <span className={styles.category}>{product.category}</span>
-        <h3 className={styles.productName}>{product.name}</h3>
-        <p className={styles.price}>${product.price}</p>
+        <h3 className={styles.productName}>{product.title}</h3>
+        <p className={styles.price}>{formatPrice(product.price)}</p>
         <Button variant="primary" size="small">
           Add to Cart
         </Button>
